@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>简简单单手写一个apply</title>
+</head>
+
+<body>
+    <script>
+        /* 
+            apply和call类型
+                1.改变函数指向上下文，具体是改变this指向
+                2.调用函数
+         */
+        // 注意要把这个函数扩展在Function构造函数的原型对象上，方便所有的函数使用
+        Function.prototype.myApply = function (val) {
+            // 判断val 的数据类型 是否为undefined或null
+            if (val === undefined || val === null) {
+                val = window;
+            }
+            // 判断是否为基本数据类型
+            if (typeof val != 'object' && typeof val != 'function') {
+                val = Object(val);
+            }
+
+            // 为对象的话则不改变
+
+            // 创建一个不重名方法名
+            var fnName = Date.now().toString(36);
+            val[fnName] = this;
+            // 调用函数
+            eval("val[fnName](" + arguments[1] + ")");
+
+            // 清除创建的方法
+            delete val[fnName];
+        }
+
+        function fn(a, b) {
+            console.log(this);
+            console.log(a + b);
+        }
+
+        fn.myApply('x', [1, 2]);
+    </script>
+</body>
+
+</html>

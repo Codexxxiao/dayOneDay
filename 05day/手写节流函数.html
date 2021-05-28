@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>手写节流函数</title>
+    <style>
+        #box {
+            width: 200px;
+            height: 200px;
+            background-color: indianred;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <script>
+        function throttle(fn, time) {
+            // 初始时间
+            let startTime = 0;
+
+            // 返回一个函数
+            return function () {
+
+                let endTime = Date.now()
+                if (endTime - startTime < time) {
+                    return;
+                }
+                startTime = endTime;
+
+                fn.call(this, arguments[0]);
+            }
+        }
+
+        function center(e) {
+            console.log(this);
+            console.log(e);
+        }
+
+        let oBox = document.getElementById('box');
+        oBox.onmousemove = throttle(center, 100);
+    </script>
+</body>
+
+</html>

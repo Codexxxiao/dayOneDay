@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>深拷贝的两种方式</title>
+</head>
+
+<body>
+    <script>
+        /* 
+            方法一：
+                思路：
+                    当碰到值为数组或者对象的时候，再次递归使用浅拷贝
+
+            方法二：
+                思路：
+                    使用JSON.stringify(obj)将一个对象转为JSON对象字符串
+                    使用JSON.parse(JSONstring)将一个JSON对象的字符串转为对象
+
+                    注意：函数，正则等会被JSON自动忽略，不存在函数，正则的时候，可以考虑用JSON对象实现深拷贝
+         */
+        //  方法一：使用递归函数进行深拷贝
+        var obj = {
+            name: 'xsx',
+            age: 18,
+            hobby: ['打游戏', '打游戏']
+        }
+
+        function deepCopy(o) {
+            // 判断是否为数组
+            if (Object.prototype.toString.call(o) === '[object Array]') {
+                var newObj = [];
+            }
+            // 判断是否为对象
+            else if (Object.prototype.toString.call(o) === '[object Object]') {
+                var newObj = {};
+            }
+            // 为其它数值直接返回
+            else {
+                return o;
+            }
+
+            for (var key in o) {
+                newObj[key] = deepCopy(o[key]);
+            }
+
+            return newObj;
+        }
+
+        var newObj = deepCopy(obj);
+
+        console.log(newObj);
+        console.log(newObj.hobby === obj.hobby); //false
+
+
+        // 深拷贝方法二：使用JSON对象进行深拷贝
+        var newObj2 = JSON.parse(JSON.stringify(obj));
+        console.log(newObj2);
+        console.log(newObj2.hobby === obj.hobby); //false
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+html,
+body {
+  margin: 0;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#outer {
+  margin: 50px auto;
+  width: 300px;
+  border: 1px solid green;
+}
+#outer #title {
+  display: flex;
+  width: 100%;
+}
+#outer #title h2 {
+  margin: 0;
+  padding: 0;
+  height: 40px;
+  line-height: 40px;
+  width: 100px;
+  border: 1px solid red;
+  font-size: 24px;
+  text-align: center;
+  box-sizing: border-box;
+}
+#outer #title h2.active {
+  background-color: red;
+}
+#outer #inner {
+  width: 300px;
+  overflow: hidden;
+}
+#outer #inner #con {
+  width: 900px;
+}
+#outer #inner #con li {
+  float: left;
+  width: 300px;
+  height: 300px;
+  box-sizing: border-box;
+  border: 1px solid red;
+}

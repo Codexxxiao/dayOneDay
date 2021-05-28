@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>简简单单手写一个instanceof</title>
+</head>
+
+<body>
+    <script>
+        /* 
+            object instanceof constructor
+                判断constructor的原型对象是否在object的原型链上
+        */
+        function Person() {
+            this.name = 'xsx';
+        }
+        var p1 = new Person();
+
+
+        function myInstanceof(obj, constru) {
+            var construPro = constru.prototype;
+            var obj = obj.__proto__;
+            while (true) {
+                if (obj === null) {
+                    return false;
+                }
+                if (obj === construPro) {
+                    return true;
+                }
+                obj = obj.__proto__;
+            }
+        }
+        console.log(myInstanceof(p1, Person)); //true
+        console.log(myInstanceof(p1, Function)); //false
+        console.log(myInstanceof(p1, Object)); //true
+    </script>
+</body>
+
+</html>

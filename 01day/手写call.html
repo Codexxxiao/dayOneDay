@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>简简单单手写call</title>
+</head>
+
+<body>
+    <script>
+        /* 
+            call干了什么：  
+                1.改变函数this指向，使其指向call的第一个参数
+                2.调用函数
+         */
+        Function.prototype.myCall = function (val) {
+            // 判断val是否为undefined或null
+            if (val === undefined || val === null) {
+                val = window;
+            }
+            // 判断是否为基本类型
+            if (typeof val != 'object' && typeof val != 'function') {
+                val = Object(val);
+            }
+
+            // 创建一个不重名的方法名
+            var fnName = Date.now().toString(36);
+            // 改变this指向
+            val[fnName] = this;
+            // 获取参数  注意使用call把slice的this指向arguments
+            // var arg = Array.prototype.slice.call(arguments, 1);
+            var arg = Array.from(arguments).slice(1);
+            // 调用函数
+            eval('val[fnName](' + arg + ');');
+            // 删除添加的属性
+            delete val[fnName];
+        }
+
+        function fn(a, b) {
+            console.log(this);
+            console.log(a + b);
+        }
+        fn.myCall(1, 2, 3);
+        fn.myCall('s');
+        fn.myCall([]);
+        fn.myCall(function () {});
+    </script>
+</body>
+
+</html>

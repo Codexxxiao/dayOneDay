@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>手写防抖函数</title>
+</head>
+
+<body>
+    <input type="text" id="ipt">
+    <script>
+        function debounce(fn, time) {
+            let timer = null;
+
+            return function () {
+                clearTimeout(timer);
+                timer = setTimeout(() => {
+                    fn.call(this, arguments[0]);
+                }, time);
+            }
+        }
+
+        function center(e) {
+            console.log(this);
+            console.log(e);
+        }
+
+        let oIpt = document.getElementById('ipt');
+        oIpt.oninput = debounce(center, 500);
+    </script>
+</body>
+
+</html>

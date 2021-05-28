@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>手写call</title>
+</head>
+
+<body>
+    <script>
+        Function.prototype.myCall = function (val) {
+            if (val === undefined || val === null) {
+                val = window
+            }
+
+            if (typeof val != 'object' && typeof val != 'function') {
+                val = Object(val);
+            }
+
+            var fnName = Date.now().toString(36);
+            var arg = Array.from(arguments).slice(1);
+
+            val[fnName] = this;
+
+            eval('val[fnName](' + arg + ')');
+
+            delete val[fnName];
+        }
+
+        function fn(a, b) {
+            console.log(this);
+            console.log(a + b);
+        }
+        fn.myCall(1, 1, 2);
+    </script>
+</body>
+
+</html>

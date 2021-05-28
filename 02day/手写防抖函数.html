@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>简简单单写个防抖</title>
+</head>
+
+<body>
+    <input type="text" id="ipt">
+    <script>
+        /* 
+            防抖函数
+                思路：使用延时定时器，如果到达指定时间则触发核心代码
+                    否则的话不触发核心代码
+
+            场景：当输入表单内容的时候，延迟500毫秒判断
+        */
+       
+        var oIpt = document.querySelector('#ipt');
+        // 表单input事件，当表单内容发生变化立即触发  change当表单发生变化并失去焦点的时候触发
+        oIpt.oninput = debounce(center, 500);
+
+        function debounce(fn, time) {
+
+            var timer = null;
+            // 返回事件真正触发的函数
+            return function () {
+                // 进来之前先清除延时定时器
+                clearTimeout(timer);
+                // 获取触发事件对象
+                var _this = this;
+                // 获取event对象
+                var arg = arguments[0];
+                // 设置一个延迟定时器  定时器的返回值是一个独一无二的标识  
+                timer = setTimeout(function () {
+                    // 时间到了之后执行核心代码
+                    // 需要改变函数的this指向触发事件的对象 
+                    // 接收event对象
+                    fn.call(_this, arg);
+                }, time)
+            }
+        }
+
+        // 需要被防抖的核心代码
+        function center(e) {
+            console.log(this);
+            console.log(11);
+            console.log(e);
+        }
+    </script>
+</body>
+
+</html>

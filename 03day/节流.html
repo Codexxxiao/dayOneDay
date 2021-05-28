@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 简简单单写个节流函数
+
+        function throttle(fn, time) {
+            var startTime = 0;
+            return function () {
+                var endTime = Date.now();
+                if (endTime - startTime < time) {
+                    return;
+                }
+                startTime = endTime;
+                fn.call(this, arguments[0]);
+            }
+        }
+    </script>
+</body>
+
+</html>

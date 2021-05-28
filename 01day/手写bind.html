@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>简简单单手写bind</title>
+</head>
+
+<body>
+    <script>
+        /* 
+            bind
+                会改变函数执行上下文
+                返回一个改变this指向的函数
+                    思路:调用时在改变this指向
+        */
+        function fn(a, b) {
+            console.log(this);
+            console.log(a + b);
+        }
+        Function.prototype.myBind = function (val) {
+            // this代表调用myBind的函数
+            var _this = this;
+            // 获取参数
+            var arg = Array.prototype.slice.call(arguments, 1);
+
+            return function () {
+
+                _this.apply(val, arg);
+            }
+        }
+
+        var re = fn.myBind(1, 2, 3);
+        re();
+        fn.myBind('s', 2, 3)();
+        fn.myBind({}, 2, 3)();
+        fn.myBind([], 2, 3)();
+        fn.myBind(function () {}, 2, 3)();
+    </script>
+</body>
+
+</html>

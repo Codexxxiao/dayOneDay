@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>数组去重的方式</title>
+</head>
+
+<body>
+    <script>
+        /* 
+            需求：  
+                给数组去重，要求写出两种方式
+        */
+        var arr = [1, 2, 3, 4, 6, 1, 2, 3, 5, 6, 7, 8, 2, 3, 5, 7, 6, 4];
+        var newArr = [];
+        //方法一：使用indexOf，如果是第一次出现则检索出来的位置跟它对应的index相同 
+        /* arr.forEach(function (item, index) {
+            if (arr.indexOf(item) === index) {
+                newArr.push(item);
+            }
+        }) */
+        // 方法二：判断当前元素在新数组中是否存在，不存在则添加
+        arr.forEach(function (item, index) {
+            if (newArr.indexOf(item) === -1) {
+                newArr.push(item);
+            }
+        })
+        console.log(newArr);
+    </script>
+</body>
+
+</html>

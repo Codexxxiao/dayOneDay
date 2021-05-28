@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>手写防抖</title>
+</head>
+
+<body>
+    <script>
+        /* 
+
+        */
+        function debounce(fn, time) {
+            var timer = null;
+            return function () {
+
+                clearTimeout(timer);
+                var _this = this;
+                var arg = arguments[0];
+                timer = setTimeout(function () {
+
+                    fn.apply(_this, arg);
+
+                }, time)
+            }
+        }
+    </script>
+</body>
+
+</html>

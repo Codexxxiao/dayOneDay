@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 获取标签元素
+        let oBtn = document.getElementById('InitCartUrl');
+
+        // 绑定点击事件
+        oBtn.onclick = function (eee) {
+            let _href = oBtn.href;
+            window.open(_href);
+            // console.log(eee);
+            // // 阻止默认跳转行为
+            // eee.preventDefault();
+            console.log('我来了');
+        }
+
+        setInterval(() => {
+            oBtn.onclick();
+        }, 1000);
+    </script>
+</body>
+
+</html>

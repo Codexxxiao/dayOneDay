@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>手写new</title>
+</head>
+
+<body>
+    <script>
+        /* 
+            new:
+                1.创建一个空对象
+                2.把这个对象隐式原型指向构造函数的显示原型
+                3.调用构造函数，并使构造函数this指向这个对象
+                4.返回对象(如果构造函数返回值是对象，则返回构造函数返回值，否则返回创建的对象)
+        */
+        function writeNew(constru) {
+            let obj = {};
+            let arg = [...arguments].slice(1);
+            let re = constru.apply(obj, arg)
+            obj.__proto__ = constru.prototype;
+
+            if (typeof re === 'object' && re != null || typeof re === 'function') {
+                return re;
+            }
+
+            return obj;
+        }
+        // class Person {
+        //     constructor(name, age) {
+        //         this.name = name;
+        //         this.age = age;
+        //     }
+
+        //     eat() {
+        //         console.log('eat');
+        //     }
+        // }
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Person.prototype.eat = function () {
+            console.log('eat');
+        }
+        let p1 = writeNew(Person, 'xsx', 18);
+        console.log(p1);
+        p1.eat();
+    </script>
+</body>
+
+</html>

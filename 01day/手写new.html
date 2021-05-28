@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>简简单单写个new</title>
+</head>
+
+<body>
+    <script>
+        /* 
+            new的实现原理：
+                1.创建一个空对象obj
+                2.调用构造函数，并使构造函数this指向obj
+                3.使obj的隐式原型执行构造函数的显示原型
+                4.判断构造函数返回值类型,如果构造函数返回值为对象，则返回这个对象，否则返回创建的obj
+         */
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Person.prototype.do = function () {
+            console.log('do');
+        }
+
+        function writeNew(constru) {
+            // 1.创建一个新对象
+            var obj = {};
+            // 2.调用构造函数，并使其this指向obj,接收构造函数的返回值 
+            var re = constru.apply(obj, Array.from(arguments).slice(1));
+            // 3.使obj的隐式原型指向构造函数的显示原型
+            obj.__proto__ = constru.prototype;
+            // 4.判断返回值的类型
+            if (typeof re === 'obj' && re != null || typeof re === 'function') {
+                return re;
+            }
+            return obj;
+        }
+        var obj1 = writeNew(Person, 'xsx', 18);
+        console.log(obj1);
+        var obj2 = new Person('xsx', 18);
+        console.log(obj1 === obj2); //false
+        console.log(obj1.do === obj2.do); //true
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>手写instanceof</title>
+</head>
+
+<body>
+    <script>
+        /* 
+            object instanceof constructor
+                判断 constructor的原型对象是否在 object的原型链上
+        */
+        function myInstanceof(obj, constru) {
+            let construPro = constru.prototype;
+            let obj = obj.__proto__;
+            while (true) {
+                if (obj === null) {
+                    return false;
+                }
+                if (obj === construPro) {
+                    return true;
+                }
+                obj = obj.__ptoto__;
+            }
+        }
+    </script>
+</body>
+
+</html>

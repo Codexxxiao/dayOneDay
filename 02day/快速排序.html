@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>快速排序</title>
+</head>
+
+<body>
+    <script>
+        /* 
+            快速排序 ：
+                思路：
+                    1.选择数组中的一个数作为基本
+                    2.遍历数组，把比这个基准值小的放在left数组中，比基准值大的放在right数组中
+                    3.递归调用，判断arr的长度是否小于等于，是的话直接返回
+                    4.把left，基准值，right拼接起来
+        */
+        var arr = [2, 3, 1, 5, 2, 3, 56, 2, 2, 4, 52, 5, 46];
+
+        function querySort(arr) {
+            
+            // 判断数组的长度是否小于等1，是的话直接返回
+            if (arr.length <= 1) {
+                return arr;
+            }
+            // 创建newArr作为返回的排序之后的新数组
+            var newArr = [];
+
+            // 选取一个基准值（随意选取）
+            var center = arr.pop();
+            var left = [];
+            var right = [];
+
+            // 遍历arr
+            arr.forEach(function (item, index) {
+                if (item <= center) {
+                    left.push(item);
+                } else {
+                    right.push(item);
+                }
+            })
+
+            // 使用concat拼接数组  (递归调用判断left和right)
+            newArr = querySort(left).concat(center, querySort(right))
+
+            return newArr;
+        }
+
+        var newArr = querySort(arr);
+        console.log(newArr);
+    </script>
+</body>
+
+</html>

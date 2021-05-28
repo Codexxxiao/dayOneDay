@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>获取随机数</title>
+</head>
+
+<body>
+    <script>
+        /* 
+            封装一个函数获取随机数
+                
+        */
+        function randomNum(start, end) {
+            return parseInt(Math.random() * (end - start)) + start;
+        }
+        setInterval(function () {
+            console.log(randomNum(100, 200));
+        }, 500)
+    </script>
+</body>
+
+</html>

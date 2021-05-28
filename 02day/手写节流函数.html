@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>手写节流函数</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: hotpink;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+    <script>
+        /* 
+            思路： 
+                无法控制鼠标移动等事件的默认触发频率
+                
+                通过创建一个节流函数‘看门狗’来设置核心代码的执行时间
+
+
+            注意：
+                节流的核心函数需要改变this指向事件对象
+                同时可以接收一个event对象作为自己的参数
+        */
+        var oBox = document.querySelector('div');
+
+        function center(e) {
+            console.log(e);
+            console.log(this);
+            console.log(1);
+        }
+
+        function throttle(fn, time) {
+            // 设置初始节流时间为0
+            var startTime = 0;
+
+            // 这个函数才是事件真正执行的函数
+            return function () {
+                // 设置终止节流时间
+                var endTime = Date.now();
+
+                if (endTime - startTime < time) {
+                    return;
+                }
+
+                startTime = endTime;
+                // 此时被节流的函数的this应该指向事件对象
+                // 此时被节流函数应该可以接收一个event对象作为参数
+                fn.call(this, arguments[0]);
+            }
+        }
+
+        oBox.onmousemove = throttle(center, 100);
+    </script>
+</body>
+
+</html>

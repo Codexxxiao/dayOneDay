@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>手写冒泡</title>
+</head>
+
+<body>
+    <script>
+        /* 
+            冒泡：
+                每次循环比较左右两个值，每一次把最大的一个往后面放，如果重新循环
+        */
+        var arr = [2, 3, 1, 5, 2, 3, 56, 2, 2, 4, 52, 5, 46];
+
+        for (var i = 0; i < arr.length - 1; i++) {
+            for (var j = 0; j < arr.length - 1 - i; j++) {
+
+                if (arr[j] > arr[j + 1]) {
+                    var temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+                
+            }
+        }
+        console.log(arr);
+    </script>
+</body>
+
+</html>
